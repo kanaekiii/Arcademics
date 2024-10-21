@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Arcademics (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Arcademics (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
