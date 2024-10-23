@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arcademics", "Arcademics.csproj", "{2F50DC5A-3C33-4A78-B0B1-B5C1F33AEA5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcademics", "Arcademics.csproj", "{2F50DC5A-3C33-4A78-B0B1-B5C1F33AEA5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{208B0A4C-B836-4191-9548-0188F5CC2966}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

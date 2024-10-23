@@ -1,69 +1,57 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.Web.WebView2.Core;
-using System.Threading.Tasks;
-using Windows.Web.Http;
-using HtmlAgilityPack;
-using Windows.System;
-using Windows.UI.Core;
-using WindowActivatedEventArgs = Microsoft.UI.Xaml.WindowActivatedEventArgs;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Windows.UI.ViewManagement;
 
 namespace Arcademics
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainWindow : Window
     {
         public MainWindow()
         {
             this.InitializeComponent();
-            ExtendsContentIntoTitleBar = true;
-            MyWebView2.Visibility = Visibility.Collapsed;
 
-            MyWebView2.NavigationCompleted += myWebView_NavigationCompleted;
-            this.Content.KeyDown += Grid_KeyDown;
+            // Start the app in full-screen mode
+            this.ExtendsContentIntoTitleBar = true;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.FullScreen;
+
+            // Handle NavigationView item selection
+            MyNavigationView.SelectionChanged += NavigationView_SelectionChanged;
         }
-        private async void myWebView_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            if (e.IsSuccess)
+            if (args.SelectedItem is NavigationViewItem selectedItem)
             {
-                string script = "document.querySelector('button.fullscreen').click();";
-                await MyWebView2.CoreWebView2.ExecuteScriptAsync(script);
-                MyWebView2.Visibility = Visibility.Visible;
+                string tag = selectedItem.Tag.ToString();
 
-               
-
+                // Navigate based on the tag
+                switch (tag)
+                {
+                    case "Addition":
+                        ContentFrame.Navigate(typeof(GamePage), "https://www.arcademics.com/games/alien");
+                        break;
+                    case "Subtraction":
+                        ContentFrame.Navigate(typeof(GamePage), "https://www.arcademics.com/games/mission");
+                        break;
+                    case "Multiplication":
+                        ContentFrame.Navigate(typeof(GamePage), "https://www.arcademics.com/games/grand-prix");
+                        break;
+                    case "Division":
+                        ContentFrame.Navigate(typeof(GamePage), "https://www.arcademics.com/games/drag-race");
+                        break;
+                }
             }
         }
+
         private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            // Check if the Escape key is pressed
-            if (e.Key == VirtualKey.Escape)
+            // Block the Escape key
+            if (e.Key == Windows.System.VirtualKey.Escape)
             {
-                // Mark the event as handled to block the Escape key
                 e.Handled = true;
             }
         }
-
-
-
     }
-
-
 }
